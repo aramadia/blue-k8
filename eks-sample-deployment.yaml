@@ -43,11 +43,11 @@ metadata:
   labels:
     app: eks-sample-linux-app
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: eks-sample-linux-app
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30080
+      name: http
