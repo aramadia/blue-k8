@@ -32,5 +32,8 @@ spec:
         - name: http
           containerPort: 80
         imagePullPolicy: IfNotPresent
-      nodeSelector:
-        kubernetes.io/os: linux
+      tolerations:
+      - key: "eks.amazonaws.com/compute-type"
+        operator: "Equal"
+        value: "fargate"
+        effect: "NoSchedule"
