@@ -1,0 +1,24 @@
+# Default recipe (uncomment it)
+# default:
+#     @just --list
+
+# Build the Docker image
+build:
+    docker build -t blue-reader .
+
+# Run Docker container
+run:
+    docker run -d blue-reader
+
+# Build and run in one command
+up: build run
+
+# Stop all running containers
+stop:
+    docker stop $(docker ps -q)
+
+# Remove all containers
+clean:
+    docker rm $(docker ps -aq)
+
+
