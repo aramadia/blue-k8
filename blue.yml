@@ -28,8 +28,8 @@ spec:
           image: aramadia/blue-writer:latest
           volumeMounts:
             - name: shared-data
-              mountPath: /data
-          imagePullPolicy: IfNotPresent
+              mountPath: /app/data
+          imagePullPolicy: Always
           resources:
             limits:
               memory: "256Mi"
@@ -41,8 +41,8 @@ spec:
           image: aramadia/blue-reader:latest
           volumeMounts:
             - name: shared-data
-              mountPath: /data
-          imagePullPolicy: IfNotPresent
+              mountPath: /app/data
+          imagePullPolicy: Always
           resources:
             limits:
               memory: "256Mi"

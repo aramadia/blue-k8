@@ -13,6 +13,10 @@ run:
 # Build and run in one command
 up: build run
 
+# Push Docker image to Docker Hub
+push:
+    docker push aramadia/blue-reader
+
 # Stop all running containers
 stop:
     docker stop $(docker ps -q)
