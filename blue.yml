@@ -21,13 +21,14 @@ spec:
         app: blue-app
     spec:
       volumes:
-        - name: shared-data
-          emptyDir: {}
+        - name: blue-pv-storage
+          persistentVolumeClaim:
+            claimName: blue-pvc
       containers:
         - name: blue-writer
           image: blue-writer:latest
           volumeMounts:
-            - name: shared-data
+            - name: blue-pv-storage
               mountPath: /app/data
           imagePullPolicy: IfNotPresent
           ports:
@@ -42,7 +43,7 @@ spec:
         - name: blue-reader
           image: blue-reader:latest
           volumeMounts:
-            - name: shared-data
+            - name: blue-pv-storage
               mountPath: /app/data
           imagePullPolicy: IfNotPresent
           resources:
@@ -66,3 +67,18 @@ spec:
       port: 80
       targetPort: 5000
   type: LoadBalancer
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: blue-pvc
+  namespace: blue
+  annotations:
+    volumeType: local
+spec:
+  storageClassName: local-path
+  accessModes:
+    - ReadWriteOncePod
+  resources:
+    requests:
+      storage: 1Gi
