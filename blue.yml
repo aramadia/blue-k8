@@ -25,11 +25,13 @@ spec:
           emptyDir: {}
       containers:
         - name: blue-writer
-          image: aramadia/blue-writer:latest
+          image: blue-writer:latest
           volumeMounts:
             - name: shared-data
               mountPath: /app/data
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
           resources:
             limits:
               memory: "256Mi"
@@ -38,11 +40,11 @@ spec:
               memory: "64Mi"
               cpu: "250m"
         - name: blue-reader
-          image: aramadia/blue-reader:latest
+          image: blue-reader:latest
           volumeMounts:
             - name: shared-data
               mountPath: /app/data
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           resources:
             limits:
               memory: "256Mi"
@@ -50,3 +52,17 @@ spec:
             requests:
               memory: "64Mi"
               cpu: "250m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blue-app-service
+  namespace: blue
+spec:
+  selector:
+    app: blue-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer
