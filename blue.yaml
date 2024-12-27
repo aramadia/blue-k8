@@ -12,6 +12,8 @@ metadata:
     app: blue-app
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: blue-app
@@ -30,9 +32,10 @@ spec:
           volumeMounts:
             - name: blue-pv-storage
               mountPath: /app/data
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
+            - containerPort: 5001
           resources:
             limits:
               memory: "256Mi"
@@ -45,7 +48,7 @@ spec:
           volumeMounts:
             - name: blue-pv-storage
               mountPath: /app/data
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           resources:
             limits:
               memory: "256Mi"
@@ -64,8 +67,13 @@ spec:
     app: blue-app
   ports:
     - protocol: TCP
+      name: blue-writer
       port: 80
       targetPort: 5000
+    - protocol: TCP
+      name: blue-reader
+      port: 81
+      targetPort: 5001
   type: LoadBalancer
 ---
 apiVersion: v1
