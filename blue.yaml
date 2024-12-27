@@ -30,7 +30,7 @@ spec:
           volumeMounts:
             - name: blue-pv-storage
               mountPath: /app/data
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           resources:
@@ -45,7 +45,7 @@ spec:
           volumeMounts:
             - name: blue-pv-storage
               mountPath: /app/data
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           resources:
             limits:
               memory: "256Mi"
