@@ -1,18 +1,22 @@
-import time
+from flask import Flask
+from flask import request
 
-def main():
-    print("Hello, world!")
+app = Flask(__name__)
 
-    while True:
-        print("Hi, I'm still here!")
-        time.sleep(1)
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
-        # Open a file and print its contents
-        try:
-            with open("data/data.txt", "r") as file:
-                print("read", file.read())
-        except FileNotFoundError:
-            print("Error: The file 'data.txt' does not exist.")
+@app.route('/read')
+def read_data():
+    data = "empty" 
+    try:
+        with open("data/data.txt", "r") as file:
+            data = file.read()
+    except FileNotFoundError:
+        data = "Error: The file 'data.txt' does not exist."
+    print(f"Read data: {data}")
+    return data, 200
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    app.run(debug=True)

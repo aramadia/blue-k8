@@ -7,3 +7,12 @@ orbstack direct
 K3
 - push to dockerhub (aramadia/blue-reader:latest)
 - set to always for latest pull
+
+
+PV
+
+Post to /write endpoint
+
+kubectl logs pod/blue-app-6f898d987-mrzqx -c blue-reader -f
+
+Delete app
