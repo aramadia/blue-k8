@@ -1,5 +1,8 @@
 from flask import Flask
 from flask import request
+import os
+env_var_name = "BLUE_READER"
+
 
 app = Flask(__name__)
 
@@ -9,6 +12,9 @@ def hello_world():
 
 @app.route('/read')
 def read_data():
+    if env_var_name not in os.environ:
+        return f"{env_var_name} is not set.", 400
+    
     data = "empty" 
     try:
         with open("data/data.txt", "r") as file:
