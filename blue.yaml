@@ -28,16 +28,18 @@ spec:
             claimName: blue-pvc
       containers:
         - name: blue-writer
-          image: blue-writer:latest
+          image: blue-editor:latest
           volumeMounts:
             - name: blue-pv-storage
               mountPath: /app/data
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
-            - containerPort: 5001
           env:
             - name: BLUE_WRITER
+            - name: PORT
+              value: "5000"
+
           resources:
             limits:
               memory: "256Mi"
@@ -46,13 +48,17 @@ spec:
               memory: "64Mi"
               cpu: "250m"
         - name: blue-reader
-          image: blue-reader:latest
+          image: blue-editor:latest
           volumeMounts:
             - name: blue-pv-storage
               mountPath: /app/data
           imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5001
           env:
             - name: BLUE_READER
+            - name: PORT
+              value: "5001"
           resources:
             limits:
               memory: "256Mi"
