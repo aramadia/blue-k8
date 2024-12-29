@@ -6,12 +6,13 @@ set -eux
 # build containers
 docker build -t blue-editor blue-editor
 
-kind load docker-image blue-editor --name kind
+kind load docker-image blue-editor --name action-blue-cluster
 
 # deploy them
 kubectl apply -f blue.yaml
 kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
 
+kubectl config set-context --current --namespace=blue
 
 # wait for the new pod to be spun up
 kubectl rollout restart deployment/blue-app -n blue || true
@@ -25,13 +26,10 @@ kubectl wait --namespace ingress-nginx \
   --selector=app.kubernetes.io/component=controller \
   --timeout=90s
 
-sleep 2
-
-
 # Read the old value
-curl localhost:81/read
+curl localhost/read
 
 # HTTP Put a new value
-curl -X PUT -d "new valuea $(date '+%Y-%m-%d %H:%M:%S')" -H "Content-Type: text/plain" localhost:80/write
+curl -X PUT -d "new valuea $(date '+%Y-%m-%d %H:%M:%S')" -H "Content-Type: text/plain" localhost/write
 
-curl localhost:81/read
+curl localhost/read

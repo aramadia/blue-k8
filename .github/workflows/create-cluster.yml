@@ -1,6 +1,6 @@
 name: Create Cluster
 
-on: pull_request
+on: push
 
 jobs:
   create-cluster:
@@ -19,13 +19,12 @@ jobs:
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.12.0
         with:
-          name: kind
+          cluster_name: action-blue-cluster # Kind adds the prefix kind- to the cluster name
+          config: kind-cluster.yaml
       - name: Use cluster
         run: |
-          kubectl cluster-info --context kind-chart-testing
+          kubectl cluster-info --context kind-action-blue-cluster
           kubectl get pods
-          kubectl config set-context --current --namespace=blue
           ./test.sh
-          sleep 60
 
           
