@@ -13,5 +13,19 @@ jobs:
           ls ${{ github.workspace }}
           echo ${{ github.workspace }}
           echo $GITHUB_PATH GITHUB_PATH
+          # This is necessary to make the docker socket available from the container since its currently owned by root
+          sudo chmod 777 /var/run/docker.sock
+
       - name: Create k8s Kind Cluster
-        uses: helm/kind-action@v1
+        uses: helm/kind-action@v1.12.0
+        with:
+          name: kind
+      - name: Use cluster
+        run: |
+          kubectl cluster-info --context kind-chart-testing
+          kubectl get pods
+          kubectl config set-context --current --namespace=blue
+          ./test.sh
+          sleep 60
+
+          

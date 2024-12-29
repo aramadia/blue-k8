@@ -94,9 +94,12 @@ metadata:
   annotations:
     volumeType: local
 spec:
-  storageClassName: local-path
+  # Uses local-path-provisioner, but in KIND for Kubernetes in Docker, it is provisioned as standard
+  # storageClassName: local-path
+  # In Kind, doesn't support ReadWriteOncePod, so use RadWriteOnce
   accessModes:
-    - ReadWriteOncePod
+    # - ReadWriteOncePod
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
