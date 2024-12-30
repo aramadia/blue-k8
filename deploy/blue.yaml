@@ -28,7 +28,8 @@ spec:
             claimName: blue-pvc
       containers:
         - name: blue-writer
-          image: blue-editor:latest
+          # aramadia uses docker hub otherwise jsut blue-editor to use local registry.
+          image: aramadia/blue-editor:latest
           volumeMounts:
             - name: blue-pv-storage
               mountPath: /app/data
@@ -52,7 +53,7 @@ spec:
               memory: "64Mi"
               cpu: "250m"
         - name: blue-reader
-          image: blue-editor:latest
+          image: aramadia/blue-editor:latest
           volumeMounts:
             - name: blue-pv-storage
               mountPath: /app/data
