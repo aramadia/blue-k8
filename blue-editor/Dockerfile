@@ -19,4 +19,7 @@ EXPOSE ${PORT}
 ENV FLASK_APP=main.py
 
 # Run the Flask app when the container starts
-CMD flask run --host=0.0.0.0 --port=$PORT
+# $PORT is set at runtime, if using [] in command, it will be treated as a string
+# and thus won't be subsituted
+SHELL ["/bin/bash", "-c"]
+ENTRYPOINT flask run --host=0.0.0.0 --port=$PORT
