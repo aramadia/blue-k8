@@ -27,7 +27,7 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          context: ./blue-editor
+          file: ./blue-editor/Dockerfile
           tags: aramadia/blue-editor:latest
 
       - name: Inspect
