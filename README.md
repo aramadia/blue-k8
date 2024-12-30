@@ -18,12 +18,14 @@ kubectl logs pod/blue-app-6f898d987-mrzqx -c blue-reader -f
 Delete app
 
 
-# Act attempts
+# CI
 
 
 - FIgure out how to connect to daemon socket locally (use sudo chmod)
 - Local provsioner - called standard instead of local-path and uses ReadWriteOnce (without pod)
 - FIgure out registry or how to load images into kind.  Turns out I can just use kind to load them directly.
+- Add readiness probes
+- Now works locally with act or using github runner
 
 ```
 https://nektosact.com/missing_functionality/docker_context.html

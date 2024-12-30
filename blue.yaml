@@ -88,11 +88,10 @@ spec:
     - protocol: TCP
       name: blue-writer
       port: 5000
-      #targetPort: 5000
     - protocol: TCP
       name: blue-reader
       port: 5001
-      #targetPort: 5001
+  # targetPort defaults to port
   # don't need a type here when used with ingress
   # type: LoadBalancer
 ---
