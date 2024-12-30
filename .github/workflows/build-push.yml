@@ -32,4 +32,5 @@ jobs:
 
       - name: Inspect
         run: |
-          docker image inspect aramadia/blue-editor:latest   
+          docker pull aramadia/blue-editor:latest
+          docker image inspect aramadia/blue-editor:latest
