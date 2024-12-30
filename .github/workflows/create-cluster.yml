@@ -20,7 +20,7 @@ jobs:
         uses: helm/kind-action@v1.12.0
         with:
           cluster_name: action-blue-cluster # Kind adds the prefix kind- to the cluster name
-          config: kind-cluster.yaml
+          config: test/kind-cluster.yaml
       - name: Use cluster
         run: |
           kubectl cluster-info --context kind-action-blue-cluster
