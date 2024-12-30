@@ -9,7 +9,7 @@ docker build -t blue-editor blue-editor
 kind load docker-image blue-editor --name action-blue-cluster
 
 # deploy them
-kubectl apply -f blue.yaml
+kubectl apply -f ./deploy/blue.yaml
 kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
 
 kubectl config set-context --current --namespace=blue
