@@ -28,6 +28,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: "{{defaultContext}}:blue-editor"
           tags: aramadia/blue-editor:latest
+          push: true
 
       - name: Inspect
         run: |
